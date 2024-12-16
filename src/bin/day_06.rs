@@ -1,3 +1,4 @@
+use rayon::prelude::*;
 use std::{collections::HashSet, iter::once};
 
 fn main() {
@@ -11,7 +12,7 @@ fn solve_pt1(input: &str) {
     let visited: HashSet<Position> = HashSet::<Position>::from_iter(
         once(grid.guard.pos)
             .chain(grid.map(|g| g.pos))
-            .collect::<HashSet<Position>>()
+            .collect::<HashSet<Position>>(),
     );
     println!("Tiles visited by the guard: {}", visited.len());
 }
@@ -19,17 +20,21 @@ fn solve_pt1(input: &str) {
 fn solve_pt2(input: &str) {
     let grid: GuardPatrolMap = GuardPatrolMap::new(input);
     let starting_pos: Position = grid.guard.pos;
-    let mut visited: HashSet<Position> = HashSet::<Position>::from_iter(
-        grid.clone().map(|g| g.pos).collect::<HashSet<Position>>()
-    );
+    let mut visited: HashSet<Position> =
+        HashSet::<Position>::from_iter(grid.clone().map(|g| g.pos).collect::<HashSet<Position>>());
     visited.remove(&starting_pos);
 
-    let mut count: usize = 0;
-    for v in visited {
-        if grid.add_new_obstacle(v).guard_in_loop() {
-            count += 1;
-        }
-    }
+    let count: usize = visited
+        .into_iter()
+        .par_bridge()
+        .map(|v: Position| -> usize {
+            if grid.add_new_obstacle(v).guard_in_loop() {
+                1
+            } else {
+                0
+            }
+        })
+        .sum();
     println!("There are {} combinations where guard is in infinite loop", count);
 }
 
@@ -93,7 +98,7 @@ struct GuardPatrolMap {
     height: usize,
     guard: Guard,
     obstacles: Vec<Position>,
-    collisions: HashSet<(Position, Direction)>
+    collisions: HashSet<(Position, Direction)>,
 }
 
 impl GuardPatrolMap {
@@ -133,7 +138,7 @@ impl GuardPatrolMap {
             height,
             guard: Guard::init(guard_pos.unwrap()),
             obstacles,
-            collisions
+            collisions,
         }
     }
 
