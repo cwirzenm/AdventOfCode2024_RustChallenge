@@ -1,9 +1,9 @@
 static TARGET: &str = "XMAS";
 static TARGET_REV: &str = "SAMX";
 
-fn main() {
-    const INPUT: &str = include_str!("../../resources/day_04.txt");
+const INPUT: &str = include_str!("../../resources/day_04.txt");
 
+fn main() {
     solve_pt1(INPUT);
     solve_pt2(INPUT);
 }

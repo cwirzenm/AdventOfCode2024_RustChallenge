@@ -1,7 +1,8 @@
 use regex::Regex;
 
+const INPUT: &str = include_str!("../../resources/day_03.txt");
+
 fn main() {
-    const INPUT: &str = include_str!("../../resources/day_03.txt");
     let re: Regex = Regex::new(r"mul\((?<num1>\d+),(?<num2>\d+)\)").unwrap();
 
     println!("Part 1: {}", solve_pt1(INPUT, &re));

@@ -1,15 +1,18 @@
 use std::{cmp::Ordering, collections::HashSet};
 
+const INPUT: &str = include_str!("../../resources/day_05.txt");
+
 fn main() {
-    let (orderings, pages): (&str, &str) = include_str!("../../resources/day_05.txt")
-        .split_once("\n\n")
-        .unwrap();
+    let (orderings, pages): (&str, &str) = INPUT.split_once("\n\n").unwrap();
 
     let orderings: HashSet<(usize, usize)> = orderings
         .lines()
         .map(|line: &str| {
             let split: (&str, &str) = line.split_once("|").unwrap();
-            (split.0.parse::<usize>().unwrap(), split.1.parse::<usize>().unwrap())
+            (
+                split.0.parse::<usize>().unwrap(),
+                split.1.parse::<usize>().unwrap(),
+            )
         })
         .collect::<HashSet<(usize, usize)>>();
 

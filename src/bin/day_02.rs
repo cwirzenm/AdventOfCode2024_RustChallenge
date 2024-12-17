@@ -1,8 +1,8 @@
 type Report = Vec<usize>;
 
-fn main() {
-    const INPUT: &str = include_str!("../../resources/day_02.txt");
+const INPUT: &str = include_str!("../../resources/day_02.txt");
 
+fn main() {
     let count_safe_reports: usize = solve(INPUT);
     println!("{}", count_safe_reports);
 }

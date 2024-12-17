@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 
+const INPUT: &str = include_str!("../../resources/day_01.txt");
+
 fn main() {
-    const INPUT: &str = include_str!("../../resources/day_01.txt");
     let split: Vec<&str> = INPUT.split("\n").collect::<Vec<&str>>();
 
     let mut left: Vec<i32> = Vec::new();

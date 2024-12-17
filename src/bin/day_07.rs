@@ -1,5 +1,6 @@
+const INPUT: &str = include_str!("../../resources/day_07.txt");
+
 fn main() {
-    const INPUT: &str = include_str!("../../resources/day_07.txt");
     solve_pt1(INPUT);
     solve_pt2(INPUT);
 }

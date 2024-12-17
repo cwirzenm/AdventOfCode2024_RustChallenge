@@ -1,8 +1,9 @@
 use rayon::prelude::*;
 use std::{collections::HashSet, iter::once};
 
+const INPUT: &str = include_str!("../../resources/day_06.txt");
+
 fn main() {
-    const INPUT: &str = include_str!("../../resources/day_06.txt");
     solve_pt1(INPUT);
     solve_pt2(INPUT);
 }
